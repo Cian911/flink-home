@@ -1,6 +1,9 @@
 .env
-target/
-mainRunner/
-.bloop/
-.metals/
+application.conf
+!application.conf.sample
+project/target/
 project/project/
+project/.bloop
+.metals/
+target/
+.bloop/
