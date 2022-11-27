@@ -28,6 +28,9 @@ object Job {
       .name("hivemq-source")
       .uid("hivemq-source")
 
+    /** sensorData .process(EventToSensorData) .filter(InvalidEvents)
+      * .name(Name) .uid(Name)
+      */
     val readings: DataStream[SensorData] = sensorData
       .map(r => {
         r
