@@ -1,0 +1,21 @@
+mqtt-source {
+  client-url = ""    
+  client-url = ${?CLIENT_URL}
+  username = ""
+  username = ${?USERNAME}
+  password = ""
+  password = ${?PASSWORD}
+  topic = "rocinante/air_quality"
+  topic = ${?TOPIC}
+}
+
+flink {
+  parallelism = 4
+  parallelism = ${?FLINK_PARALLELISM}
+  watermark-interval = 1000
+  watermark-interval = ${?FLINK_WATERMARK_INTERVAL}
+  tm-replicas = 2
+  tm-replicas = ${?FLINK_TM_REPLICAS}
+  tm-slots = 2
+  tm-slots = ${?FLINK_TM_SLOTS}
+}
