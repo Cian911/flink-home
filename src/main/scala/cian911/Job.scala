@@ -38,6 +38,10 @@ object Job {
 
     readings.print()
 
+    /** Once we have readings, we can start using time windows. Get Max CO2 &
+      * Temp values in last 30m & 60m
+      */
+
     env.execute(settings.applicationName)
   }
 
