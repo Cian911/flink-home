@@ -16,10 +16,11 @@ case class SensorData(
     pressure: Double,
     timestamp: Double,
     nodeId: Double,
-    temperature: Double
+    temperature: Double,
+    publishedAt: Double
 )
 
-class HiveMqttSource extends RichParallelSourceFunction[SensorData] {
+class HiveMqttSource extends RichParallelSourceFunction[String] {
 
   lazy val client: MqttClient = new MqttClient(
     settings.mqttSettings.clientUrl,
@@ -28,7 +29,7 @@ class HiveMqttSource extends RichParallelSourceFunction[SensorData] {
   lazy val waitLock: Object = new Object()
   @volatile var running: Boolean = false
 
-  override def run(ctx: SourceContext[SensorData]): Unit = {
+  override def run(ctx: SourceContext[String]): Unit = {
     val connectionOpts: MqttConnectOptions = new MqttConnectOptions()
     connectionOpts.setCleanSession(true)
     connectionOpts.setUserName(settings.mqttSettings.username)
@@ -45,8 +46,7 @@ class HiveMqttSource extends RichParallelSourceFunction[SensorData] {
       override def messageArrived(topic: String, message: MqttMessage): Unit = {
         val msg: String =
           new String(message.getPayload(), StandardCharsets.UTF_8)
-        val data: SensorData = parseMsg(msg)
-        ctx.collect(data)
+        ctx.collect(msg)
       }
 
       override def connectionLost(x: Throwable): Unit = {
@@ -70,25 +70,5 @@ class HiveMqttSource extends RichParallelSourceFunction[SensorData] {
   override def cancel(): Unit = {
     running = false
     client.disconnect()
-  }
-
-  def parseMsg(msg: String): SensorData = {
-    val parsed = JSON.parseFull(msg)
-    parsed match {
-      case Some(event) => {
-        val eventValues =
-          event
-            .asInstanceOf[Map[String, Map[String, Double]]]
-            .flatMap(_._2)
-            .map(_._2)
-
-        val eventTupleValues = eventValues match {
-          case List(a, b, c, d, e) => (a, b, c, d, e)
-        }
-
-        return SensorData.tupled(eventTupleValues)
-      }
-      case None => SensorData(0, 0, 0, -1, 0)
-    }
   }
 }
