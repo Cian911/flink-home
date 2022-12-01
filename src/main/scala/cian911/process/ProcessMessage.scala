@@ -6,18 +6,28 @@ import cian911._
 import org.apache.flink.streaming.api.functions.ProcessFunction
 import org.apache.flink.util.Collector
 import org.apache.flink.configuration.Configuration
+import java.time.Instant
 
 class ProcessMessage extends ProcessFunction[String, SensorData] {
 
   override def processElement(
-      x: String,
-      y: ProcessFunction[String, SensorData]#Context,
-      z: Collector[SensorData]
+      event: String,
+      ctx: ProcessFunction[String, SensorData]#Context,
+      out: Collector[SensorData]
   ): Unit = {
     // Convert string msg to SensorData
+    val eventData: Tuple6[Double, Double, Double, Double, Double, Double] =
+      parseMsg(
+        event
+      )
+
+    val sensorData: SensorData = SensorData.tupled(eventData)
+    out.collect(sensorData)
   }
 
-  private def parseMsg(msg: String): SensorData = {
+  private def parseMsg(
+      msg: String
+  ): Tuple6[Double, Double, Double, Double, Double, Double] = {
     val parsed = JSON.parseFull(msg)
     parsed match {
       case Some(event) => {
@@ -28,12 +38,15 @@ class ProcessMessage extends ProcessFunction[String, SensorData] {
             .map(_._2)
 
         val eventTupleValues = eventValues match {
-          case List(a, b, c, d, e) => (a, b, c, d, e)
+          case List(a, b, c, d, e) => {
+            val timestamp: Long = Instant.now().getEpochSecond()
+            (a, b, c, d, e, timestamp.toDouble)
+          }
         }
 
-        return SensorData.tupled(eventTupleValues)
+        return eventTupleValues
       }
-      case None => SensorData(0, 0, 0, -1, 0)
+      case None => (0.0, 0.0, 0.0, -1.0, 0.0, -1.0)
     }
   }
 }

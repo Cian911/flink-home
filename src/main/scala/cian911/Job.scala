@@ -11,11 +11,16 @@ import org.apache.flink.streaming.api.datastream
 import com.esotericsoftware.kryo.serializers.CompatibleFieldSerializer
 import cian911.source.HiveMqttSource
 import cian911.source.SensorData
+import cian911.process.ProcessMessage
 
 object Job {
   def main(args: Array[String]): Unit = {
     implicit lazy val typeInfo =
       TypeInformation.of(classOf[(SensorData)])
+    implicit lazy val typeInfo2 =
+      TypeInformation.of(classOf[(String)])
+    implicit lazy val typeInfo3 =
+      TypeInformation.of(classOf[(Double)])
 
     val env = StreamExecutionEnvironment.createLocalEnvironment(
       settings.flinkSettings.parallelism
@@ -23,15 +28,15 @@ object Job {
 
     env.getConfig.setAutoWatermarkInterval(1000L)
 
-    val sensorData: DataStream[SensorData] = env
+    val sensorData: DataStream[String] = env
       .addSource(new HiveMqttSource())
       .name("hivemq-source")
       .uid("hivemq-source")
 
-    /** sensorData .process(EventToSensorData) .filter(InvalidEvents)
-      * .name(Name) .uid(Name)
-      */
     val readings: DataStream[SensorData] = sensorData
+      .process(new ProcessMessage())
+      .keyBy(_.nodeId)
+      .filter(_.co2 != 0)
       .map(r => {
         r
       })
