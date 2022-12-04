@@ -15,13 +15,6 @@ import cian911.process.ProcessMessage
 
 object Job {
   def main(args: Array[String]): Unit = {
-    implicit lazy val typeInfo =
-      TypeInformation.of(classOf[(SensorData)])
-    implicit lazy val typeInfo2 =
-      TypeInformation.of(classOf[(String)])
-    implicit lazy val typeInfo3 =
-      TypeInformation.of(classOf[(Double)])
-
     val env = StreamExecutionEnvironment.createLocalEnvironment(
       settings.flinkSettings.parallelism
     )
