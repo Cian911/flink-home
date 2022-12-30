@@ -22,21 +22,24 @@ val flinkDependencies = Seq(
 // https://mvnrepository.com/artifact/org.apache.flink/flink-clients
 libraryDependencies += "org.apache.flink" % "flink-clients" % "1.16.0"
 
+
 // https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java
-/* libraryDependencies += "org.apache.flink" % "flink-streaming-java" % flinkVersion */
+ /*libraryDependencies += "org.apache.flink" % "flink-streaming-java" % flinkVersion */
 
 val AkkaVersion = "2.7.0"
 
 libraryDependencies ++= Seq(
   "com.lightbend.akka" %% "akka-stream-alpakka-mqtt" % "5.0.0",
-  "com.typesafe.akka" %% "akka-stream" % AkkaVersion
+  "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   /* "org.eclipse.paho" % "mqtt-client" % "0.4.0" */
 )
 
 
 // https://mvnrepository.com/artifact/com.hivemq/hivemq-mqtt-client
 libraryDependencies += "com.hivemq" % "hivemq-mqtt-client" % "1.3.0"
-
+libraryDependencies += ("org.apache.bahir" % "flink-connector-influxdb_2.12" % "1.1.0").exclude("org.apache.flink", "flink-streaming-java_2.12")
+// https://mvnrepository.com/artifact/org.influxdb/influxdb-java
+libraryDependencies += "org.influxdb" % "influxdb-java" % "2.23"
 
 lazy val scalaSettings = Seq(
   scalacOptions --= Seq("-Xmx1536M --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED")

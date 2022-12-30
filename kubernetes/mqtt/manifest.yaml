@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: mqtt-broker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-broker-deployment
+  namespace: mqtt-broker
+  labels:
+    app: mqtt-broker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mqtt-broker
+  template:
+    metadata:
+      labels:
+        app: mqtt-broker
+    spec:
+      containers:
+      - name: broker-container
+        image: hivemq/hivemq-ce
+        resources:
+          limits:
+            memory: 0.6Gi
+            cpu: 300m  
+          requests:
+            memory: 0.2Gi
+            cpu: 150m  
+        ports:
+        - containerPort: 1883
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt-broker
+  namespace: mqtt-broker
+spec:
+  selector:
+    app:  mqtt-broker
+  type: LoadBalancer  
+  ports:
+  - port: 1883
+    targetPort: 1883
+    nodePort: 30005
