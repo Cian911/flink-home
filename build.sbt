@@ -1,7 +1,22 @@
+enablePlugins(SbtProguard)
+
+proguardOptions in Proguard ++= Seq("-dontnote", "-dontwarn", "-ignorewarnings")
+
+proguardOptions in Proguard += ProguardOptions.keepMain("cian911.Job")
+
+proguardOptions in Proguard ++= Seq(
+  "-keep class org.eclipse.paho.client.mqttv3.internal.* { *; }",
+  "-keep class org.eclipse.paho.client.mqttv3.spi.* { *; }",
+  "-dontshrink",
+  "-dontoptimize",
+  "-dontobfuscate"
+)
+
+
 ThisBuild / resolvers ++= Seq(
     "Apache Development Snapshot Repository" at "https://repository.apache.org/content/repositories/snapshots/",
     "MVN Repo" at "https://mvnrepository.com/artifact/",
-    "JFrog" at "https://repo.spring.io/ui/native/plugins-release/",
+    "JFrog" at "https://repo.spring.io/plugins-release/",
     Resolver.mavenLocal
 )
 
@@ -27,7 +42,7 @@ val AkkaVersion = "2.7.0"
 libraryDependencies ++= Seq(
   "com.lightbend.akka" %% "akka-stream-alpakka-mqtt" % "5.0.0",
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
-  /* "org.eclipse.paho" % "mqtt-client" % "0.4.0" */
+  "org.eclipse.paho" % "org.eclipse.paho.client.mqttv3" % "1.2.4" 
 )
 
 
@@ -46,6 +61,8 @@ lazy val root = (project in file(".")).
     libraryDependencies ++= flinkDependencies,
     scalaSettings
   )
+
+Proguard/proguard/javaOptions := Seq("-Xmx4g")
 
 assemblyMergeStrategy in assembly := {
  case PathList("META-INF", _*) => MergeStrategy.discard

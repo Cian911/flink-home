@@ -26,14 +26,7 @@ spec:
       containers:
       - name: jobmanager
         image: arm64v8/flink:latest 
-        env:
-        - name: POD_IP
-          valueFrom:
-            fieldRef:
-              apiVersion: v1
-              fieldPath: status.podIP
-        # The following args overwrite the value of jobmanager.rpc.address configured in the configuration config map to POD_IP.
-        args: ["jobmanager", "$(POD_IP)"]
+        args: ["jobmanager"]
         ports:
         - containerPort: 6123
           name: rpc
@@ -164,7 +157,7 @@ data:
     queryable-state.proxy.ports: 6125
     jobmanager.memory.process.size: 1600m
     taskmanager.memory.process.size: 1728m
-    parallelism.default: 2    
+    parallelism.default: 1    
   log4j-console.properties: |+
     # This affects logging for both user code and Flink
     rootLogger.level = INFO
