@@ -1,0 +1,78 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: flink-home
+  labels:
+    app: influxdb
+  name: influxdb-pvc
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: influxdb-secrets
+type: Opaque
+data:
+  INFLUXDB_DB: ZmxpbmtfaG9tZQo=
+  INFLUXDB_USER: dXNlcgo=
+  INFLUXDB_USER_PASSWORD: cGFzc3dvcmQK
+  INFLUXDB_READ_USER: cmVhZG9ubHkK
+  INFLUXDB_USER_PASSWORD: cGFzc3dvcmQK
+  INFLUXDB_ADMIN_USER: cm9vdAo=
+  INFLUXDB_ADMIN_USER_PASSWORD: cGFzc3dvcmQK
+  INFLUXDB_HOST: aW5mbHV4ZGIK
+  INFLUXDB_HTTP_AUTH_ENABLED: dHJ1ZQo=
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: flink-home
+  labels:
+    app: influxdb
+  name: influxdb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: influxdb
+  template:
+    metadata:
+      labels:
+        app: influxdb
+    spec:
+      containers:
+      - envFrom:
+        - secretRef:
+            name: influxdb-secrets
+        image: docker.io/influxdb:1.8
+        name: influxdb
+        volumeMounts:
+        - mountPath: /var/lib/influxdb
+          name: var-lib-influxdb
+      volumes:
+      - name: var-lib-influxdb
+        persistentVolumeClaim:
+          claimName: influxdb-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: influxdb
+  name: influxdb
+  namespace: flink-home
+spec:
+  ports:
+  - port: 8086
+    protocol: TCP
+    targetPort: 8086
+  selector:
+    app: influxdb
+  type: LoadBalancer

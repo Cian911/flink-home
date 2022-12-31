@@ -19,3 +19,14 @@ flink {
   tm-slots = 2
   tm-slots = ${?FLINK_TM_SLOTS}
 }
+
+influxdb {
+  client-url = ""
+  client-url = ?{INFLUXDB_CLIENT_URL}
+  username = ""
+  username = ?{INFLUXDB_USERNAME}
+  password = ""
+  password = ?{INFLUXDB_PASSWORD}
+  database = ""
+  database = ?{INFLUXDB_DATABASE}
+}
