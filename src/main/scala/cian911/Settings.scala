@@ -29,6 +29,13 @@ class Settings(val config: Config) extends Serializable {
     config.getString("mqtt-source.password"),
     config.getString("mqtt-source.topic")
   )
+
+  val influxDbSettings = InfluxDBSettings(
+    config.getString("influxdb.client-url"),
+    config.getString("influxdb.username"),
+    config.getString("influxdb.password"),
+    config.getString("influxdb.database"),
+  )
 }
 
 case class FlinkSettings(
@@ -42,4 +49,11 @@ case class MqttSettings(
     username: String,
     password: String,
     topic: String
+)
+
+case class InfluxDBSettings(
+    clientUrl: String,
+    username: String,
+    password: String,
+    database: String
 )

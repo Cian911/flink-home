@@ -22,10 +22,6 @@ val flinkDependencies = Seq(
 // https://mvnrepository.com/artifact/org.apache.flink/flink-clients
 libraryDependencies += "org.apache.flink" % "flink-clients" % "1.16.0"
 
-
-// https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java
- /*libraryDependencies += "org.apache.flink" % "flink-streaming-java" % flinkVersion */
-
 val AkkaVersion = "2.7.0"
 
 libraryDependencies ++= Seq(

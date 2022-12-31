@@ -12,6 +12,7 @@ import com.esotericsoftware.kryo.serializers.CompatibleFieldSerializer
 import cian911.source.HiveMqttSource
 import cian911.source.SensorData
 import cian911.process.ProcessMessage
+import cian911.sink.InfluxDBSink
 
 object Job {
   def main(args: Array[String]): Unit = {
@@ -35,6 +36,11 @@ object Job {
       })
 
     readings.print()
+
+    readings
+      .addSink(new InfluxDBSink())
+      .name("InfluxDB-Sink")
+      .uid("InfluxDB-Sink")
 
     /** Once we have readings, we can start using time windows. Get Max CO2 &
       * Temp values in last 30m & 60m
