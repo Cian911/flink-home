@@ -16,9 +16,10 @@ import cian911.sink.InfluxDBSink
 
 object Job {
   def main(args: Array[String]): Unit = {
-    val env = StreamExecutionEnvironment.createLocalEnvironment(
-      settings.flinkSettings.parallelism
-    )
+    /*val env = StreamExecutionEnvironment.createLocalEnvironment(*/
+      /*settings.flinkSettings.parallelism*/
+    /*)*/
+   val env = StreamExecutionEnvironment.getExecutionEnvironment
 
     env.getConfig.setAutoWatermarkInterval(1000L)
 
