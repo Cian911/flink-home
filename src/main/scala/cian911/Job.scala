@@ -12,7 +12,10 @@ import com.esotericsoftware.kryo.serializers.CompatibleFieldSerializer
 import cian911.source.HiveMqttSource
 import cian911.source.SensorData
 import cian911.process.ProcessMessage
+import cian911.process.ProcessWindow
 import cian911.sink.InfluxDBSink
+import org.apache.flink.streaming.api.windowing.assigners.SlidingProcessingTimeWindows
+import org.apache.flink.streaming.api.windowing.time.Time
 
 object Job {
   def main(args: Array[String]): Unit = {
@@ -32,13 +35,15 @@ object Job {
       .process(new ProcessMessage())
       .keyBy(_.nodeId)
       .filter(_.co2 != 0)
-      .map(r => {
-        r
-      })
+      .name("process-readings")
+      .uid("process-readings")
 
-    readings.print()
+    val smoothReadings: DataStream[SensorData] = readings
+      .keyBy(_.nodeId)
+      .window(SlidingProcessingTimeWindows.of(Time.minutes(5), Time.seconds(60)))
+      .process(new ProcessWindow())
 
-    readings
+    smoothReadings
       .addSink(new InfluxDBSink())
       .name("InfluxDB-Sink")
       .uid("InfluxDB-Sink")
