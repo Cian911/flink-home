@@ -16,7 +16,7 @@ class Settings(val config: Config) extends Serializable {
   import Settings._
 
   val applicationName = config.getString("application-name")
-
+  
   val flinkSettings = FlinkSettings(
     config.getInt("flink.parallelism"),
     config.getScalaDuration("flink.watermark-interval"),

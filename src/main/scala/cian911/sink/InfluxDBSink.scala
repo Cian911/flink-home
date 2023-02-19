@@ -57,7 +57,13 @@ class InfluxDBSink extends RichSinkFunction[SensorData] {
       .addField("pressure", data.pressure)
     val p: Point = builder.build()
 
-    influxDBClient.write(p)
+    try {
+      influxDBClient.write(p)
+    } catch {
+      case e: Exception => {
+        LOG.error("Failed to sink metric to influxDB: {}", e)
+      }
+    }
   }
 
   // Closes the connection to InfluxDB
