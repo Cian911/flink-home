@@ -14,7 +14,7 @@ Flink home is a scala streaming application run on my at home raspberry-pi clust
 ### Schema
 
 ```json
-event = {
+"event" = {
   "event": {
     "co2": 500,
     "temperature": 21.0,
