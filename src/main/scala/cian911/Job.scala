@@ -38,7 +38,7 @@ object Job {
       .process(new ProcessMessage())
       .keyBy(_.nodeId)
       .filter(_.co2 != -1)
-      .filter(_.co2 > settings.co2UpperLimit)
+      .filter(_.co2 < settings.co2UpperLimit)
       .name("process-readings")
       .uid("process-readings")
 
