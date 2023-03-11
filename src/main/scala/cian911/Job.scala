@@ -19,10 +19,13 @@ import org.slf4j.LoggerFactory
 
 object Job {
   def main(args: Array[String]): Unit = {
-    /*val env = StreamExecutionEnvironment.createLocalEnvironment(*/
-      /*settings.flinkSettings.parallelism*/
-    /*)*/
-    val env = StreamExecutionEnvironment.getExecutionEnvironment
+    var env = StreamExecutionEnvironment.getExecutionEnvironment
+
+    if (settings.localDevelopment) {
+      env = StreamExecutionEnvironment.createLocalEnvironment(
+        settings.flinkSettings.parallelism
+      )
+    }
 
     env.getConfig.setAutoWatermarkInterval(1000L)
 
