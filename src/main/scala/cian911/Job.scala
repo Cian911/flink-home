@@ -47,6 +47,8 @@ object Job {
       .keyBy(_.nodeId.toString())
       .window(SlidingProcessingTimeWindows.of(Time.minutes(2), Time.seconds(15)))
       .process(new ProcessWindowEvents())
+      .name("smooth-readings")
+      .uid("smooth-readings")
 
     smoothReadings
       .addSink(new InfluxDBSink())
