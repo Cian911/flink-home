@@ -38,22 +38,20 @@ object Job {
       .process(new ProcessMessage())
       .keyBy(_.nodeId)
       .filter(_.co2 != -1)
+      .filter(_.co2 > settings.co2UpperLimit)
       .name("process-readings")
       .uid("process-readings")
 
-    /*val smoothReadings: DataStream[SensorData] = readings*/
-      /*.keyBy(_.nodeId.toString())*/
-      /*.window(SlidingProcessingTimeWindows.of(Time.minutes(5), Time.seconds(60)))*/
-      /*.process(new ProcessWindowEvents())*/
+    // Smooth readings and also filter out insane readings
+    val smoothReadings: DataStream[SensorData] = readings
+      .keyBy(_.nodeId.toString())
+      .window(SlidingProcessingTimeWindows.of(Time.minutes(2), Time.seconds(15)))
+      .process(new ProcessWindowEvents())
 
-    readings
+    smoothReadings
       .addSink(new InfluxDBSink())
       .name("InfluxDB-Sink")
       .uid("InfluxDB-Sink")
-
-    /** Once we have readings, we can start using time windows. Get Max CO2 &
-      * Temp values in last 30m & 60m
-      */
 
     env.execute(settings.applicationName)
   }

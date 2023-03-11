@@ -14,6 +14,8 @@ object Settings {
 
 class Settings(val config: Config) extends Serializable {
   import Settings._
+  
+  val co2UpperLimit: Double = 4000
 
   val applicationName = config.getString("application-name")
 
