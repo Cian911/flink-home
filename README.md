@@ -4,13 +4,13 @@
 1. [Description](#description)
 2. [Components](#components)
 3. [Setup](#setup)
-  1. [Assumptions](#assumptions)
-  2. [Pi Pico](#pi-pico)
-  3. [Kubernetes](#kubernetes)
-    1. [MQTT](#mqtt)
-    2. [InfluxDB](#influxdb)
-    3. [Apache Flink](#apache-flink)
-    4. [Bento](#bento)
+    1. [Assumptions](#assumptions)
+    2. [Pi Pico](#pi-pico)
+    3. [Kubernetes](#kubernetes)
+       1. [MQTT](#mqtt)
+       2. [InfluxDB](#influxdb)
+       3. [Apache Flink](#apache-flink)
+       4. [Bento](#bento)
 
 ### Description
 
