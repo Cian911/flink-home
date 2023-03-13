@@ -2,6 +2,14 @@
 
 This folder contains all the code necessary to run the CO2 monitor and send data to an MQTT broker.
 
+#### Components
+
+The components I'm using in this project are as follows. All of these can be found quite easily online for purchase.
+
+- [RPI SHD CO2 Sensor (Raspberry Pi CO2 Sensor Breakout board)](https://www.reichelt.com/pl/en/raspberry-pi-shield-co2-sensor-breakout-board-rpi-shd-co2-sens-p311516.html?r=1)
+- [I2C OLED Display](https://randomnerdtutorials.com/guide-for-oled-display-with-arduino/)
+- [Double Sided PCB Boards](https://www.amazon.co.uk/gp/product/B073ZHVKC1/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&psc=1)
+
 #### Packages & Dependencies
 
 **NB**: This assumes you are using the same sensor & OLED display as I am in this project. If you are using somethign different, you will have to modify the code accordingly.
