@@ -19,7 +19,7 @@ The components I'm using in this project are as follows. All of these can be fou
 
 **NB**: This assumes you are using the same sensor & OLED display as I am in this project. If you are using somethign different, you will have to modify the code accordingly.
 
-To connect the pico and test this project, I used [Thonny](https://thonny.org/).
+To connect the pico and test this project, I used [Thonny](https://thonny.org/). Some of the below packages you may be able to install directly from Thonny, however if not you should be able to install them via the python REPL.
 
 - `ssd1306` - Micropython Package
 - `upip` - Micropython Package
