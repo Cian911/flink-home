@@ -59,7 +59,7 @@ Note, I have not tested this manifest myself, as I am using a cloud broker provi
 kubectl apply -f kubernetes/influxdb/manifest.yaml
 ```
 
-Code and documentation pertaining to the setup and running of an MQTT broker can be found [here](./kubernetes/README.md)
+Code and documentation pertaining to the setup and running of an MQTT broker can be found [here](./kubernetes/README.md).
 
 ##### InfluxDB
 
@@ -73,7 +73,7 @@ kubectl create secret generic influxdb-secrets --from-file=kubernetes/influxdb/m
 kubectl apply -f kubernetes/influxdb/manifest.yaml
 ```
 
-Code and documentation pertaining to the setup and running of an InfluxDB can be found [here](./kubernetes/README.md)
+Code and documentation pertaining to the setup and running of an InfluxDB can be found [here](./kubernetes/README.md).
 
 ##### Apache Flink
 
@@ -86,7 +86,7 @@ Similarly to InfluxDB, it is best to first go over the flink manifest and make a
 kubectl apply -f kubernetes/flink/manifest.yaml
 ```
 
-Code and documentation pertaining to the setup and running of an Apache Flink be found [here](./kubernetes/README.md)
+Code and documentation pertaining to the setup and running of an Apache Flink be found [here](./kubernetes/README.md).
 
 ##### Bento
 
@@ -94,4 +94,4 @@ TBD
 
 #### Case
 
-STL files can be found for the custom sensor hosuing and case [here](./case/README.md)
+`.STL` files can be found for the custom sensor housing and case [here](./case/README.md).
