@@ -1,5 +1,10 @@
 ### Pi Pico 
 
+<p align="center">
+  <img style="float: right;width:600px;height:600px;" src="./images/flink-homev1.jpg" alt="Flink Home v0.0.1"/>
+</p>
+
+
 This folder contains all the code necessary to run the CO2 monitor and send data to an MQTT broker.
 
 #### Components
