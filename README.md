@@ -5,26 +5,24 @@
 Flink home is a scala streaming application run on my at home raspberry-pi cluster. The aim of flink home is to ingest data from various CO2 sensor nodes in my home (powered via the Pi Pico W), clean the data, and sink it to InfluxDB which can be used as a source in grafana.
 
 <p align="center">
-  <img style="float: right;width:500px;height:500px;" src="./images/flink-homev1.jpg" alt="Flink Home v0.0.1"/>
+  <img style="float: right;width:600px;height:600px;" src="./images/flink-homev1.jpg" alt="Flink Home v0.0.1"/>
 </p>
 
-![Grafana Dashboard](./images/grafana.png)
+![Grafana Dashboard](./images/grafana-smooth-co2.png)
 
 
 ### Schema
 
 ```json
-"event" = {
-  "event": {
-    "co2": 500,
-    "temperature": 21.0,
-    "pressure": 900,
-    "node_id": 1,
-    "timestamp": 1673213606
-  }
+"event": {
+  "co2": 500,
+  "temperature": 21.0,
+  "pressure": 900,
+  "node_id": 1,
+  "timestamp": 1673213606
 }
 ```
-### Build & Run
+### Build & Run Flink
 
 Run the following:
 
