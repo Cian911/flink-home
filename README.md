@@ -19,6 +19,8 @@ Flink home is a scala streaming application run on my at home raspberry-pi clust
 
 The data from this will then be used to automate the fan speed of my home ventilation system once the CO2 levels in a particular room reach a certain pre-defined threshold. We will do this using a custom made client - [Bento](https://github.com/Cian911/bento).
 
+There will be an accompanying blog post for this project added here in the very near future.
+
 <p align="center">
   <img style="float: right;width:600px;height:600px;" src="./images/flink-homev1.jpg" alt="Flink Home v0.0.1"/>
 </p>
@@ -38,10 +40,13 @@ The components I'm using in this project are as follows. All of these can be fou
 
 #### Assumptions
 
-MQTT, Grafana, K8s
+In my particular case, I had some things running out of the box for this project already such as Grafana and and existing MQTT broker all running within my at home K8s cluster running a couple of raspberry-pis as example.
+
+Going forward, this project assumes you can fill in the holes which I may have left out, or modify & taylor anything in this project to suite your own needs.
 
 #### Pi Pico
-Pi Pico setup etc
+
+Code and documentation pertaining to the setup on the Raspberry Pi Pico can be found [here](./pi-pico/README.md).
 
 #### Kubernetes
 All things K8s
