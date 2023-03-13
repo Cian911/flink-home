@@ -4,6 +4,7 @@
 - [Description](#description)
 - [Components](#components)
 - [Setup](#setup)
+    - [Assumptions](#assumptions)
     - [Pi Pico](#pi-pico)
     - [Kubernetes](#kubernetes)
        - [MQTT](#mqtt)
@@ -34,6 +35,10 @@ The components I'm using in this project are as follows. All of these can be fou
 - [Single Room Heat Recovery Unit](https://www.blauberg.co.uk/en/blauberg-mini-air-decentralised-heat-recovery-unit-single-wall-mounted-d-mvhr-ventilator-smart-wifi-control)
 
 ### Setup
+
+#### Assumptions
+
+MQTT, Grafana, K8s
 
 #### Pi Pico
 Pi Pico setup etc
