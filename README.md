@@ -1,16 +1,16 @@
 # Flink Home
 
-# Talbe of Contents
-1. [Description](#description)
-2. [Components](#components)
-3. [Setup](#setup)
-    1. [Assumptions](#assumptions)
-    2. [Pi Pico](#pi-pico)
-    3. [Kubernetes](#kubernetes)
-       1. [MQTT](#mqtt)
-       2. [InfluxDB](#influxdb)
-       3. [Apache Flink](#apache-flink)
-       4. [Bento](#bento)
+# Table of Contents
+- [Description](#description)
+- [Components](#components)
+- [Setup](#setup)
+    - [Pi Pico](#pi-pico)
+    - [Kubernetes](#kubernetes)
+       - [MQTT](#mqtt)
+       - [InfluxDB](#influxdb)
+       - [Apache Flink](#apache-flink)
+       - [Bento](#bento)
+    - [Case](#case)
 
 ### Description
 
@@ -34,10 +34,6 @@ The components I'm using in this project are as follows. All of these can be fou
 - [Single Room Heat Recovery Unit](https://www.blauberg.co.uk/en/blauberg-mini-air-decentralised-heat-recovery-unit-single-wall-mounted-d-mvhr-ventilator-smart-wifi-control)
 
 ### Setup
-Setup Instructions
-
-#### Assumptions
-Some assumnptions that will be made
 
 #### Pi Pico
 Pi Pico setup etc
@@ -56,3 +52,7 @@ Flink stuff
 
 ##### Bento
 Vento bento hento stuff for vents
+
+#### Case
+
+Link off to STL files for printing sensor hosuing.
