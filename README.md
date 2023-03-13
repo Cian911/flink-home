@@ -52,17 +52,21 @@ Code and documentation pertaining to the setup on the Raspberry Pi Pico can be f
 All things K8s
 
 ##### MQTT
-MQTT Stuff
+
+Code and documentation pertaining to the setup and running of an MQTT broker can be found [here](./kubernetes/README.md)
 
 ##### InfluxDB
-InfluxDB stuff
+
+Code and documentation pertaining to the setup and running of an InfluxDB can be found [here](./kubernetes/README.md)
 
 ##### Apache Flink
-Flink stuff
+
+Code and documentation pertaining to the setup and running of an Apache Flink be found [here](./kubernetes/README.md)
 
 ##### Bento
-Vento bento hento stuff for vents
+
+TBD
 
 #### Case
 
-Link off to STL files for printing sensor hosuing.
+STL files can be found for the custom sensor hosuing and case [here](./case/README.md)
