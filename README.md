@@ -8,23 +8,21 @@ Flink home is a scala streaming application run on my at home raspberry-pi clust
   <img style="float: right;width:600px;height:600px;" src="./images/flink-homev1.jpg" alt="Flink Home v0.0.1"/>
 </p>
 
-![Grafana Dashboard](./images/grafana.png)
+![Grafana Dashboard](./images/grafana-smooth-co2.png)
 
 
 ### Schema
 
 ```json
-"event" = {
-  "event": {
-    "co2": 500,
-    "temperature": 21.0,
-    "pressure": 900,
-    "node_id": 1,
-    "timestamp": 1673213606
-  }
+"event": {
+  "co2": 500,
+  "temperature": 21.0,
+  "pressure": 900,
+  "node_id": 1,
+  "timestamp": 1673213606
 }
 ```
-### Build & Run
+### Build & Run Flink
 
 Run the following:
 
