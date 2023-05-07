@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bento
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bento-app-deployment
+  namespace: bento
+  labels:
+    app: bento-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bento-app
+  template:
+    metadata:
+      labels:
+        app: bento-app
+    spec:
+      containers:
+      - name: bento-container
+        image: ghcr.io/cian911/bento:0.0.1-rc
+        args: ["--config", "/config.yml"]
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config.yml
+        resources:
+          limits:
+            memory: "600Mi"
+            cpu: "300m"  
+          requests:
+            memory: "200Mi"
+            cpu: "150m"  
+      volumes:
+        - name: config-volume
+          configMap:
+            name: default-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: default-config
+  namespace: bento
+data: 
+  fans: |
+  - id: "004F00384B435705"
+    name: "Bedroom"
+    ipaddress: "192.168.0.172"
+    password: "1111"
+    port: 4000
+    maxedtimeout: 60
+  - id: "001900284B435704"
+    name: "Office"
+    ipaddress: "192.168.0.238"
+    password: "1111"
+    port: 4000
+    maxedtimeout: 60
