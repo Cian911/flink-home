@@ -1,0 +1,84 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bento
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bento-app-deployment
+  namespace: bento
+  labels:
+    app: bento-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bento-app
+  template:
+    metadata:
+      labels:
+        app: bento-app
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: machinetype
+                  operator: In
+                  values:
+                    - arm64
+      containers:
+      - name: bento-container
+        image: cian911/bento:v0.0.1-rc-arm64
+        args: ["--config", "/config/config.yaml"]
+        volumeMounts:
+          - name: config-volume
+            mountPath: /config
+        resources:
+          limits:
+            memory: "600Mi"
+            cpu: "300m"  
+          requests:
+            memory: "200Mi"
+            cpu: "150m"  
+      volumes:
+        - name: config-volume
+          configMap:
+            name: default-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: default-config
+  namespace: bento
+data:
+  config.yaml: |
+    influxdb:
+      url: "http://192.168.0.172"
+      port: 8086
+      username: "user"
+      password: "password"
+      database: "flink_home"
+      measurement: "Co2Data"
+      field: "co2"
+      interval: 18
+      threshold: 600
+
+    fans:
+      - id: "004F00384B435705"
+        name: "Bedroom"
+        ipaddress: "192.168.0.172"
+        password: "1111"
+        port: 4000
+        maxedtimeout: 60
+
+      - id: "001900284B435704"
+        name: "Office"
+        ipaddress: "192.168.0.238"
+        password: "1111"
+        port: 4000
+        maxedtimeout: 60
+

@@ -39,3 +39,13 @@ Similarly to InfluxDB, it is best to first go over the flink manifest and make a
 # Flink
 kubectl apply -f kubernetes/flink/manifest.yaml
 ```
+
+##### Bento
+
+**N.B**: The docker image associated with this manifest is a 64bit image, but you can find an image that works for your system at [Cian911/bento](https://github.com/Cian911/bento/releases).
+
+Bento is a go client that connects to an InfluxDB source and controls your blauberg-vento fans based on some criteria/threshold/value you provide.
+
+```bash
+kubectl apply -f kubernetes/bento/manifest.yml
+```

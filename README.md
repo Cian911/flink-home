@@ -90,7 +90,13 @@ Code and documentation pertaining to the setup and running of an Apache Flink be
 
 ##### Bento
 
-TBD
+**N.B**: The docker image associated with this manifest is a 64bit image, but you can find an image that works for your system at [Cian911/bento](https://github.com/Cian911/bento/releases).
+
+Bento is a go client that connects to an InfluxDB source and controls your blauberg-vento fans based on some criteria/threshold/value you provide. More info about its use and configuration can be found on the associated repository.
+
+```bash
+kubectl apply -f kubernetes/bento/manifest.yml
+```
 
 #### Case
 
