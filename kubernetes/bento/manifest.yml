@@ -21,13 +21,22 @@ spec:
       labels:
         app: bento-app
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                - key: machinetype
+                  operator: In
+                  values:
+                    - arm64
       containers:
       - name: bento-container
-        image: ghcr.io/cian911/bento:0.0.1-rc
-        args: ["--config", "/config.yml"]
+        image: cian911/bento:v0.0.1-rc-arm64
+        args: ["--config", "/config/config.yaml"]
         volumeMounts:
           - name: config-volume
-            mountPath: /config.yml
+            mountPath: /config
         resources:
           limits:
             memory: "600Mi"
@@ -45,17 +54,31 @@ kind: ConfigMap
 metadata:
   name: default-config
   namespace: bento
-data: 
-  fans: |
-  - id: "004F00384B435705"
-    name: "Bedroom"
-    ipaddress: "192.168.0.172"
-    password: "1111"
-    port: 4000
-    maxedtimeout: 60
-  - id: "001900284B435704"
-    name: "Office"
-    ipaddress: "192.168.0.238"
-    password: "1111"
-    port: 4000
-    maxedtimeout: 60
+data:
+  config.yaml: |
+    influxdb:
+      url: "http://192.168.0.172"
+      port: 8086
+      username: "user"
+      password: "password"
+      database: "flink_home"
+      measurement: "Co2Data"
+      field: "co2"
+      interval: 18
+      threshold: 600
+
+    fans:
+      - id: "004F00384B435705"
+        name: "Bedroom"
+        ipaddress: "192.168.0.172"
+        password: "1111"
+        port: 4000
+        maxedtimeout: 60
+
+      - id: "001900284B435704"
+        name: "Office"
+        ipaddress: "192.168.0.238"
+        password: "1111"
+        port: 4000
+        maxedtimeout: 60
+
