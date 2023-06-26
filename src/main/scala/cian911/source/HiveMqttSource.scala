@@ -37,7 +37,7 @@ class HiveMqttSource extends RichParallelSourceFunction[String] {
       settings.mqttSettings.password.toCharArray()
     )
     connectionOpts.setKeepAliveInterval(0)
-    connectionOpts.setSocketFactory(SSLSocketFactory.getDefault())
+    //connectionOpts.setSocketFactory(SSLSocketFactory.getDefault())
     connectionOpts.setAutomaticReconnect(true)
 
     client.connect(connectionOpts)
